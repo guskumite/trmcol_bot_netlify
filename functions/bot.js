@@ -1,11 +1,10 @@
 const axios = require('axios');
-const { Telegraf, session } = require('telegraf');
+const Telegraf = require('telegraf');
 
 // Inicializa el bot con tu token (asegúrate de configurar la variable en Netlify)
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
 //Middleware para sesiones
-bot.use(session());
 
 // Middleware para enviar un mensaje antes de que el usuario use cualquier comando
 bot.use(async (ctx, next) => {
