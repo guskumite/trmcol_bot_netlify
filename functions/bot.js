@@ -1,5 +1,6 @@
 const { Telegraf } = require('telegraf');
 const axios = require('axios');
+const { Telegraf, session } = require('telegraf');
 
 // Inicializa el bot con tu token (asegúrate de configurar la variable en Netlify)
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
