@@ -4,8 +4,23 @@ const axios = require('axios');
 // Inicializa el bot con tu token (asegúrate de configurar la variable en Netlify)
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
-bot.start((ctx) => ctx.reply('Hola! Envíame una fecha en formato YYYY-MM-DD para consultar el valor de la TRM en esa fecha.'));
+// Middleware para enviar un mensaje antes de que el usuario use cualquier comando
+bot.use(async (ctx, next) => {
+    if (!ctx.session || !ctx.session.started) {
+        ctx.session = { started: true }; // Marca que el usuario ya ha sido recibido
+        await ctx.reply('¡Bienvenido! Usa el comando /start para obtener instrucciones.');
+await ctx.reply('¡Hola! Estoy usando la App de Global66, regístrate con mi link y tienes de'); await ctx.reply('regalo tú primera transacción gratis.');
+await ctx.reply('https://app.global66.com/QR8h/sktqzn4k');
+    }
+    return next(); // Continúa al siguiente middleware o comando
+});
 
+// Comando /start para guiar al usuario
+bot.start((ctx) => {
+    ctx.reply('Hola! Envíame una fecha en formato YYYY-MM-DD para consultar el valor de la TRM en esa fecha.');
+});
+
+// Manejo de cualquier texto enviado
 bot.on('text', async (ctx) => {
     const userDate = ctx.message.text;
     if (validateDate(userDate)) {
@@ -16,7 +31,7 @@ bot.on('text', async (ctx) => {
             ctx.reply(`No se encontró un valor para la fecha ${userDate}.`);
         }
     } else {
-        ctx.reply('Por favor, ingresa una fecha válida en el formato YYYY-MM-DD. para consultar la TRM de esa fecha.');
+        ctx.reply('Por favor, ingresa una fecha válida en el formato YYYY-MM-DD para consultar la TRM de esa fecha.');
     }
 });
 
@@ -54,9 +69,17 @@ async function getValueFromAPI(userDate) {
 
 // Configura el handler para Netlify Functions
 exports.handler = async function (event, context) {
-    await bot.handleUpdate(JSON.parse(event.body));
-    return {
-        statusCode: 200,
-        body: '',
-    };
+    try {
+        await bot.handleUpdate(JSON.parse(event.body));
+        return {
+            statusCode: 200,
+            body: '',
+        };
+    } catch (error) {
+        console.error('Error en el handler de Netlify:', error);
+        return {
+            statusCode: 500,
+            body: 'Error en el servidor',
+        };
+    }
 };
