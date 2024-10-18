@@ -1,0 +1,14 @@
+{
+  "name": "trmcol_bot_netlify",
+  "version": "1.0.0",
+  "description": "Bot de Telegram TRM COL desplegado en Netlify",
+  "main": "bot.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "telegraf": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "echo 'Building the project...' && exit 0"
+  }
+}
