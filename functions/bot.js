@@ -4,14 +4,14 @@ const axios = require('axios');
 // Inicializa el bot con tu token (asegúrate de configurar la variable en Netlify)
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
-bot.start((ctx) => ctx.reply('Hola! Envíame una fecha en formato YYYY-MM-DD para consultar el valor.'));
+bot.start((ctx) => ctx.reply('Hola! Envíame una fecha en formato YYYY-MM-DD para consultar el valor de la TRM en esa fecha.'));
 
 bot.on('text', async (ctx) => {
     const userDate = ctx.message.text;
     if (validateDate(userDate)) {
         const value = await getValueFromAPI(userDate);
         if (value) {
-            ctx.reply(`El valor correspondiente a la fecha ${userDate} es ${value}.`);
+            ctx.reply(`El valor de la TRM a la fecha ${userDate} es ${value}.`);
         } else {
             ctx.reply(`No se encontró un valor para la fecha ${userDate}.`);
         }
