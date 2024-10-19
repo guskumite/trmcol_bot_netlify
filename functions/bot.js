@@ -2,7 +2,7 @@ const axios = require('axios');
    const Telegraf = require('telegraf');
    const LocalSession = require('telegraf-session-local');
 
-   // Inicializa el bot con tu token
+   // Inicializa el bot con tu token .
    const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
    // Configura la sesión local
