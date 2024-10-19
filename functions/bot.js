@@ -9,6 +9,8 @@ bot.use(async (ctx, next) => {
     if (!ctx.session || !ctx.session.started) {
         ctx.session = { started: true }; // Marca que el usuario ya ha sido recibido
         await ctx.reply('¡Bienvenido! Usa el comando /start para obtener instrucciones.');
+ await ctx.reply('¡Hola! Estoy usando la App de Global66, regístrate con mi link y tienes de regalo tú primera transacción gratis.');
+        await ctx.reply('https://app.global66.com/QR8h/sktqzn4k');
     }
     return next(); // Continúa al siguiente middleware o comando
 });
